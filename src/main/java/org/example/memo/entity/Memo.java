@@ -1,17 +1,17 @@
 package org.example.memo.entity;
 
-import org.example.memo.dto.MemoRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.memo.dto.MemoRequestDto;
 
 @Entity
 @Getter
 @Setter
 @Table
 @NoArgsConstructor
-public class Memo {
+public class Memo extends Timestamped{
     @Id     /*PRIMARY KEY*/
     @GeneratedValue(strategy = GenerationType.IDENTITY)  /*AUTO_INCREMENT*/
     private Long id;
