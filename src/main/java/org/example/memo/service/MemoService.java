@@ -5,6 +5,7 @@ import org.example.memo.dto.MemoResponseDto;
 import org.example.memo.entity.Memo;
 import org.example.memo.repository.MemoRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,42 +21,36 @@ public class MemoService {
     public MemoResponseDto createMemo(MemoRequestDto requestDto) {
         // RequestDto -> Entity
         Memo memo = new Memo(requestDto);
-
         // DB 저장
         Memo saveMemo = memoRepository.save(memo);
-
-        // Entity -> ResponseDto
-        MemoResponseDto responseDto = new MemoResponseDto(saveMemo);
-
-        return responseDto;
+        // Entity -> ResponseDto 반환
+        return new MemoResponseDto(saveMemo);
     }
 
     public List<MemoResponseDto> getMemos() {
-        // DB 조회
-        return memoRepository.findAll();
+        return memoRepository.findAll().stream().map(MemoResponseDto::new).toList();
     }
 
+    @Transactional
     public Long updateMemo(Long id, MemoRequestDto requestDto) {
-        // 해당 메모가 DB에 존재하는지 확인
-        Memo memo = memoRepository.findById(id);
-        if (memo != null) {
-            // memo 내용 수정
-            memoRepository.update(id, requestDto);
-            return id;
-        } else {
-            throw new IllegalArgumentException("선택하신 메모가 존재하지 않습니다.");
-        }
+        Memo memo = findMemo(id);
+
+        memo.update(requestDto);
+
+        return id;
     }
 
     public Long deleteMemo(Long id) {
-        // 해당 메모가 DB에 존재하는지 확인
-        Memo memo = memoRepository.findById(id);
-        if (memo != null) {
-            // memo 삭제
-            memoRepository.delete(id);
-            return id;
-        } else {
-            throw new IllegalArgumentException("선택하신 메모가 존재하지 않습니다.");
-        }
+        Memo memo = findMemo(id);
+
+        memoRepository.delete(memo);
+
+        return id;
+    }
+
+    private Memo findMemo(Long id){
+        return memoRepository.findById(id).orElseThrow(() ->
+                new IllegalArgumentException("선택하신 메모는 존재하지 않습니다.")
+        );
     }
 }
