@@ -36,4 +36,10 @@ public class MemoController {
     public Long deleteMemo(@PathVariable Long id) {
         return memoService.deleteMemo(id);
     }
+
+    /*쿼리 파라미터로 받은 키워드가 contents에 포함된 메모 조회*/
+    @GetMapping("/memos/contents")
+    public List<MemoResponseDto> getMemosByKeyword(@RequestParam String keyword){
+        return memoService.getMemosByKeyword(keyword);
+    }
 }
