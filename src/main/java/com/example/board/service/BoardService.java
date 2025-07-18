@@ -2,6 +2,7 @@ package com.example.board.service;
 
 import com.example.board.dto.BoardRequestDto;
 import com.example.board.dto.BoardResponseDto;
+import com.example.board.dto.BoardWithAgeResponseDto;
 import com.example.board.entity.Board;
 import com.example.board.entity.Member;
 import com.example.board.repository.BoardRepository;
@@ -39,6 +40,14 @@ public class BoardService {
 
     public List<BoardResponseDto> getBoards() {
         return boardRepository.findAll().stream().map(BoardResponseDto::new).toList();
+    }
+
+    public BoardWithAgeResponseDto getBoardById(Long id) {
+        Board board = boardRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "게시글을 찾을 수 없습니다.")
+        );
+        Member member = board.getMember();
+        return new BoardWithAgeResponseDto(board, member.getAge());
     }
 }
 

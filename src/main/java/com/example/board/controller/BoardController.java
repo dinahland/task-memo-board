@@ -2,6 +2,7 @@ package com.example.board.controller;
 
 import com.example.board.dto.BoardRequestDto;
 import com.example.board.dto.BoardResponseDto;
+import com.example.board.dto.BoardWithAgeResponseDto;
 import com.example.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,11 @@ public class BoardController {
     public ResponseEntity<List<BoardResponseDto>> getBoards(){
         List<BoardResponseDto> boardsList = boardService.getBoards();
         return new ResponseEntity<>(boardsList, HttpStatus.OK);
+    }
+
+    /*id로 게시글 조회 API*/
+    @GetMapping("/{id}")
+    public ResponseEntity<BoardWithAgeResponseDto> getBoardById(@PathVariable Long id){
+        return new ResponseEntity<>(boardService.getBoardById(id), HttpStatus.OK);
     }
 }
