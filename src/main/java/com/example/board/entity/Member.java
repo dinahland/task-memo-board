@@ -14,6 +14,9 @@ public class Member extends BaseEntity {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
@@ -21,7 +24,8 @@ public class Member extends BaseEntity {
 
     private Integer age;
 
-    public Member(String username, String password, Integer age){
+    public Member(String email, String username, String password, Integer age){
+        this.email = email;
         this.username = username;
         this.password = password;
         this.age = age;

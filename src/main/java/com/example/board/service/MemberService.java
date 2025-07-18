@@ -17,7 +17,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     public SignUpResponseDto signUp(SignUpRequestDto requestDto) {
-        Member member = new Member(requestDto.getUsername(), requestDto.getPassword(), requestDto.getAge());
+        Member member = new Member(requestDto.getEmail(), requestDto.getUsername(), requestDto.getPassword(), requestDto.getAge());
         Member savedMember = memberRepository.save(member);
         return new SignUpResponseDto(savedMember.getId(),savedMember.getUsername(),savedMember.getAge());
     }
