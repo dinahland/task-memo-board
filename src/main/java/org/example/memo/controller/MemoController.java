@@ -17,21 +17,25 @@ public class MemoController {
         this.memoService = memoService;
     }
 
+    /*메모 생성*/
     @PostMapping("/memos")
     public MemoResponseDto createMemo(@RequestBody MemoRequestDto requestDto){
         return memoService.createMemo(requestDto);
     }
 
+    /*메모 전체 조회*/
     @GetMapping("/memos")
     public List<MemoResponseDto> getMemos() {
         return memoService.getMemos();
     }
 
+    /*메모 수정*/
     @PutMapping("/memos/{id}")
     public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
         return memoService.updateMemo(id, requestDto);
     }
 
+    /*메모 삭제*/
     @DeleteMapping("/memos/{id}")
     public Long deleteMemo(@PathVariable Long id) {
         return memoService.deleteMemo(id);

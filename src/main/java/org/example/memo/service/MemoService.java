@@ -34,20 +34,17 @@ public class MemoService {
     @Transactional
     public Long updateMemo(Long id, MemoRequestDto requestDto) {
         Memo memo = findMemo(id);
-
         memo.update(requestDto);
-
         return id;
     }
 
     public Long deleteMemo(Long id) {
         Memo memo = findMemo(id);
-
         memoRepository.delete(memo);
-
         return id;
     }
 
+    /*id로 메모 찾아서 반환*/
     private Memo findMemo(Long id){
         return memoRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("선택하신 메모는 존재하지 않습니다.")
