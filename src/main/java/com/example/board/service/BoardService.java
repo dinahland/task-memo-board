@@ -22,20 +22,10 @@ public class BoardService {
 
     public BoardResponseDto createBoard(BoardRequestDto requestDto) {
         Member member = findMemberByUsername(requestDto.getUsername());
-
         Board board = new Board(requestDto.getTitle(), requestDto.getContents(), member);
-
         boardRepository.save(board);
-
         return new BoardResponseDto(board.getId(), board.getTitle(), board.getContents());
 
-    }
-
-    /* username 으로 멤버 찾아서 반환*/
-    private Member findMemberByUsername(String username){
-        return memberRepository.findMemberByUsername(username).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다.")
-        );
     }
 
     public List<BoardResponseDto> getBoards() {
@@ -43,11 +33,28 @@ public class BoardService {
     }
 
     public BoardWithAgeResponseDto getBoardById(Long id) {
-        Board board = boardRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "게시글을 찾을 수 없습니다.")
-        );
+        Board board = findBoardById(id);
         Member member = board.getMember();
         return new BoardWithAgeResponseDto(board, member.getAge());
+    }
+
+    public void delete(Long id) {
+        Board board = findBoardById(id);
+        boardRepository.delete(board);
+    }
+
+    /*id로 게시글 찾아서 반환*/
+    private Board findBoardById(Long id){
+        return boardRepository.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "게시글을 찾을 수 없습니다.")
+        );
+    }
+
+    /* username 으로 멤버 찾아서 반환*/
+    private Member findMemberByUsername(String username){
+        return memberRepository.findMemberByUsername(username).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "회원 정보를 찾을 수 없습니다.")
+        );
     }
 }
 

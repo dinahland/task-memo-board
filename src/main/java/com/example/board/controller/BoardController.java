@@ -35,4 +35,11 @@ public class BoardController {
     public ResponseEntity<BoardWithAgeResponseDto> getBoardById(@PathVariable Long id){
         return new ResponseEntity<>(boardService.getBoardById(id), HttpStatus.OK);
     }
+
+    /*게시글 삭제 API*/
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        boardService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
