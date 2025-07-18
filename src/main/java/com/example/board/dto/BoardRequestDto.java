@@ -5,9 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SignUpRequestDto {     /*회원 가입 요청 DTO*/
+public class BoardRequestDto {      /*게시글 생성 요청 DTO*/
+    private String title;
+    private String contents;
     private String username;
-    private String password;
-    private Integer age;
-
 }

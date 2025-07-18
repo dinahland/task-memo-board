@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UpdatePasswordRequestDto {
+public class UpdatePasswordRequestDto {     /*비밀번호 변경 요청 DTO*/
     private String oldPassword;
     private String newPassword;
 }

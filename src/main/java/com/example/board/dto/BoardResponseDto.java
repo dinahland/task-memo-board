@@ -5,8 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SignUpResponseDto {    /*회원 가입 응답 DTO*/
+public class BoardResponseDto {     /*게시글 생성 응답 DTO*/
     private Long id;
-    private String username;
-    private Integer age;
+    private String title;
+    private String contents;
+
 }
