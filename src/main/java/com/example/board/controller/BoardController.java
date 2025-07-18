@@ -6,10 +6,9 @@ import com.example.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +20,12 @@ public class BoardController {
     @PostMapping
     public ResponseEntity<BoardResponseDto> createBoard(@RequestBody BoardRequestDto requestDto){
         return new ResponseEntity<>(boardService.createBoard(requestDto), HttpStatus.CREATED);
+    }
+
+    /*게시글 전체 조회 API*/
+    @GetMapping
+    public ResponseEntity<List<BoardResponseDto>> getBoards(){
+        List<BoardResponseDto> boardsList = boardService.getBoards();
+        return new ResponseEntity<>(boardsList, HttpStatus.OK);
     }
 }
