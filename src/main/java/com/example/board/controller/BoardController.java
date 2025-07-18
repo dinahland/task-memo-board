@@ -7,6 +7,7 @@ import com.example.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class BoardController {
 
     /*게시글 생성 API*/
     @PostMapping
-    public ResponseEntity<BoardResponseDto> createBoard(@RequestBody BoardRequestDto requestDto){
+    public ResponseEntity<BoardResponseDto> createBoard(@Validated @RequestBody BoardRequestDto requestDto){
         return new ResponseEntity<>(boardService.createBoard(requestDto), HttpStatus.CREATED);
     }
 
