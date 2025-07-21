@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class MemoResponseDto {
-    private Long id;
-    private String username;
-    private String contents;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private final Long id;
+    private final String username;
+    private final String contents;
+    private final LocalDateTime createdAt;
+    private final LocalDateTime modifiedAt;
 
     public MemoResponseDto(Memo memo){
         this.id = memo.getId();

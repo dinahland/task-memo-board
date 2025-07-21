@@ -1,9 +1,11 @@
 package org.example.memo.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class MemoRequestDto {
-    private String username;
-    private String contents;
+    private final String username;
+    private final String contents;
 }
