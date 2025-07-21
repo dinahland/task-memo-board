@@ -8,11 +8,11 @@ import lombok.Getter;
 @AllArgsConstructor
 public class BoardRequestDto {      /*게시글 생성 요청 DTO*/
     @NotNull
-    private String title;
+    private final String title;
 
     @NotNull
-    private String contents;
+    private final String contents;
 
     @NotNull
-    private String username;
+    private final String username;
 }

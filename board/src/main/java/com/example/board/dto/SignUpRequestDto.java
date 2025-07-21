@@ -13,16 +13,16 @@ public class SignUpRequestDto {     /*회원 가입 요청 DTO*/
 
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "유효하지 않은 이메일입니다.")
-    private String email;
+    private final String email;
 
     @NotNull
-    private String username;
+    private final String username;
 
     @NotBlank
-    private String password;
+    private final String password;
 
     @NotNull
     @Range(min = 1, max = 150)
-    private Integer age;
+    private final Integer age;
 
 }

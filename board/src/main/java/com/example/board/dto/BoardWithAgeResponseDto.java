@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class BoardWithAgeResponseDto {
-    private Long id;
-    private String title;
-    private String contents;
-    private Integer age;
+    private final Long id;
+    private final String title;
+    private final String contents;
+    private final Integer age;
 
     public BoardWithAgeResponseDto(Board board, Integer age){
         this.id = board.getId();

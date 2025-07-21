@@ -7,9 +7,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class BoardResponseDto {     /*게시글 생성 응답 DTO*/
-    private Long id;
-    private String title;
-    private String contents;
+    private final Long id;
+    private final String title;
+    private final String contents;
 
     public BoardResponseDto(Board board){
         this.id = board.getId();

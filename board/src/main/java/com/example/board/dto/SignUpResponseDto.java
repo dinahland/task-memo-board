@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class SignUpResponseDto {    /*회원 가입 응답 DTO*/
-    private Long id;
-    private String username;
-    private Integer age;
+    private final Long id;
+    private final String username;
+    private final Integer age;
 }

@@ -8,8 +8,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UpdatePasswordRequestDto {     /*비밀번호 변경 요청 DTO*/
     @NotBlank
-    private String oldPassword;
+    private final String oldPassword;
 
     @NotBlank
-    private String newPassword;
+    private final String newPassword;
 }
