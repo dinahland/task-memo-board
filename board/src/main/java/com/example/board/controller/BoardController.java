@@ -3,12 +3,14 @@ package com.example.board.controller;
 import com.example.board.dto.BoardRequestDto;
 import com.example.board.dto.BoardResponseDto;
 import com.example.board.dto.BoardWithAgeResponseDto;
+import com.example.board.dto.SignUpResponseDto;
 import com.example.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -20,7 +22,10 @@ public class BoardController {
 
     /*게시글 생성 API*/
     @PostMapping
-    public ResponseEntity<BoardResponseDto> createBoard(@Validated @RequestBody BoardRequestDto requestDto){
+    public ResponseEntity<BoardResponseDto> createBoard(@Validated @RequestBody BoardRequestDto requestDto, @SessionAttribute(name = "signupUser", required = false)SignUpResponseDto signupUser){
+        if(signupUser == null){     // 세션을 가지고 있는지 확인
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "가입된 회원만 게시글 작성 가능합니다.");
+        }
         return new ResponseEntity<>(boardService.createBoard(requestDto), HttpStatus.CREATED);
     }
 

@@ -4,6 +4,8 @@ import com.example.board.dto.SignUpRequestDto;
 import com.example.board.dto.SignUpResponseDto;
 import com.example.board.dto.UpdatePasswordRequestDto;
 import com.example.board.service.MemberService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +20,11 @@ public class MemberController {
 
     /*회원 가입 API*/
     @PostMapping("/signup")
-    public ResponseEntity<SignUpResponseDto> signUp(@Validated @RequestBody SignUpRequestDto requestDto){
-        return new ResponseEntity<>(memberService.signUp(requestDto), HttpStatus.CREATED);
+    public ResponseEntity<SignUpResponseDto> signUp(@Validated @RequestBody SignUpRequestDto requestDto, HttpServletRequest request){
+        SignUpResponseDto responseDto = memberService.signUp(requestDto);
+        HttpSession session = request.getSession();         //새로운 세션 생성
+        session.setAttribute("signupUser", responseDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
     /* id로 회원 조회 API*/
