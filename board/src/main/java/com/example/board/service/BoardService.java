@@ -20,6 +20,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
+    /*새 게시글 생성, DB 저장 후 BoardResponseDto 형태로 반환*/
     public BoardResponseDto createBoard(BoardRequestDto requestDto) {
         Member member = findMemberByUsername(requestDto.getUsername());
         Board board = new Board(requestDto.getTitle(), requestDto.getContents(), member);
@@ -28,16 +29,19 @@ public class BoardService {
 
     }
 
+    /*전체 게시글 BoardResponseDto 리스트로 반환*/
     public List<BoardResponseDto> getBoards() {
         return boardRepository.findAll().stream().map(BoardResponseDto::new).toList();
     }
 
+    /*id로 게시글 찾아서 작성 멤버 나이와 함께 반환*/
     public BoardWithAgeResponseDto getBoardById(Long id) {
         Board board = findBoardById(id);
         Member member = board.getMember();
         return new BoardWithAgeResponseDto(board, member.getAge());
     }
 
+    /*id 받아서 게시글 삭제*/
     public void delete(Long id) {
         Board board = findBoardById(id);
         boardRepository.delete(board);
